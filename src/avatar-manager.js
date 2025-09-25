@@ -19,14 +19,14 @@ export class AvatarManager {
     this.isInitializing = true;
 
     try {
-      console.log('Initializing HeyGen Streaming Avatar with config:', {
+      console.log('Initializing AI Streaming Avatar with config:', {
         avatarId: this.config.avatarId,
         voiceId: this.config.voiceId,
         token: this.config.apiToken ? '[PROVIDED]' : '[MISSING]'
       });
 
       // Create streaming avatar instance
-      console.log('Creating StreamingAvatar with token length:', this.config.apiToken?.length);
+      console.log('Creating AI Avatar with token length:', this.config.apiToken?.length);
       this.avatar = new StreamingAvatar({
         token: this.config.apiToken
       });
@@ -75,7 +75,7 @@ export class AvatarManager {
       let errorMessage = `Initialization failed: ${error.message}`;
 
       if (error.message?.includes('400') || error.message?.includes('unauthorized') || error.message?.includes('API request failed')) {
-        errorMessage = `API Error (${error.message})\n\n⚠️ This might be due to:\n• API token expired or invalid\n• Free plan limitations - HeyGen Streaming SDK requires a paid plan (Pro/Scale/Enterprise)\n• Token not properly configured\n\nPlease check your HeyGen dashboard for plan details and token status.`;
+        errorMessage = `API Error (${error.message})\n\n⚠️ This might be due to:\n• API token expired or invalid\n• Free plan limitations - Premium streaming requires a paid plan\n• Token not properly configured\n\nPlease check your account dashboard for plan details and token status.`;
       } else if (error.message?.includes('CORS')) {
         errorMessage = `CORS Error: ${error.message}\n\nTry serving from a proper domain or check API token permissions.`;
       }

@@ -5,7 +5,7 @@ export class EmbedFallback {
   }
 
   createEmbedFallback() {
-    console.log('Creating HeyGen embed fallback...');
+    console.log('Creating avatar embed fallback...');
 
     // Create embed container
     this.embedContainer = document.createElement('div');
@@ -31,9 +31,9 @@ export class EmbedFallback {
     const header = document.createElement('div');
     header.innerHTML = `
       <div style="text-align: center; margin-bottom: 1rem; color: white;">
-        <h3 style="margin: 0 0 0.5rem 0;">HeyGen Interactive Avatar</h3>
+        <h3 style="margin: 0 0 0.5rem 0;">Interactive Avatar</h3>
         <p style="margin: 0; opacity: 0.8; font-size: 0.9rem;">
-          SDK requires paid plan - Using embed fallback
+          Premium streaming unavailable - Using embed fallback
         </p>
       </div>
     `;
@@ -49,7 +49,7 @@ export class EmbedFallback {
       background: white;
     `;
     iframe.allow = "microphone; camera";
-    iframe.title = "HeyGen Interactive Avatar";
+    iframe.title = "Interactive Avatar";
 
     // Add close button
     const closeButton = document.createElement('button');
@@ -102,7 +102,7 @@ export class EmbedFallback {
       });
     }, 100);
 
-    console.log('HeyGen embed fallback created');
+    console.log('Avatar embed fallback created');
     return true;
   }
 
@@ -111,7 +111,7 @@ export class EmbedFallback {
       this.embedContainer.remove();
       this.embedContainer = null;
       this.isEmbedLoaded = false;
-      console.log('HeyGen embed fallback removed');
+      console.log('Avatar embed fallback removed');
     }
   }
 
