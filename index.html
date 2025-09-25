@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HeyGen Streaming Avatar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  </head>
+  <body>
+    <div id="app">
+      <!-- Landing Screen -->
+      <div id="landing-screen" class="screen landing-screen">
+        <div class="landing-container">
+          <div class="hero-section">
+            <h1 class="hero-title">HeyGen Streaming Avatar</h1>
+            <p class="hero-subtitle">Experience real-time voice conversations with your custom avatar</p>
+          </div>
+
+          <div class="avatar-preview">
+            <div class="preview-placeholder">
+              <div class="avatar-icon">🤖</div>
+              <p>Your avatar will appear here</p>
+            </div>
+          </div>
+
+          <div class="landing-controls">
+            <button id="start-conversation" class="start-button">
+              <span class="button-icon">🎬</span>
+              Start Conversation
+            </button>
+            <button id="try-embed" class="embed-button">
+              <span class="button-icon">🌐</span>
+              Try Embed Version
+            </button>
+            <p class="plan-note">
+              Note: Streaming SDK requires HeyGen paid plan. Embed version works with free accounts.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Screen -->
+      <div id="chat-screen" class="screen chat-screen" style="display: none;">
+        <div class="chat-container">
+          <div class="video-section">
+            <div class="video-container">
+              <video id="avatar-video" class="avatar-video" autoplay playsInline></video>
+              <div class="video-overlay">
+                <div class="status-indicator">
+                  <span id="connection-status">Connected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls-section">
+            <div class="voice-status">
+              <div class="voice-indicator" id="voice-indicator">
+                <div class="mic-animation"></div>
+                <p id="voice-status-text">🎤 Voice chat active - Just speak naturally</p>
+              </div>
+            </div>
+
+            <div class="text-controls">
+              <div class="input-group">
+                <textarea
+                  id="message-input"
+                  class="message-input"
+                  placeholder="Or type a message for your avatar to speak..."
+                  rows="2"
+                  maxlength="500"
+                ></textarea>
+                <button id="speak-button" class="speak-button">Send</button>
+              </div>
+              <div class="character-count">
+                <span id="char-count">0/500</span>
+              </div>
+            </div>
+
+            <div class="status-section">
+              <p id="status-message" class="status-message">Ready to chat</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <p class="loading-text">Connecting to your avatar...</p>
+        </div>
+      </div>
+
+      <!-- Error Container -->
+      <div id="error-container" class="error-container" style="display: none;">
+        <div class="error-message">
+          <span class="error-icon">⚠️</span>
+          <span class="error-text"></span>
+          <button class="error-close">&times;</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
