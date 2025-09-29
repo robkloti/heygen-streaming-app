@@ -35,14 +35,25 @@ export class AvatarManager {
       this.setupEventHandlers();
 
       // Create avatar session
-      const sessionInfo = await this.avatar.createStartAvatar({
+      const avatarConfig = {
         avatarName: this.config.avatarId,
         quality: AvatarQuality.High,
         voice: {
           voiceId: this.config.voiceId,
           emotion: VoiceEmotion.FRIENDLY
         }
-      });
+      };
+
+      // Add knowledge base configuration if provided
+      if (this.config.knowledgeId) {
+        avatarConfig.knowledgeId = this.config.knowledgeId;
+        console.log('Using knowledge base ID:', this.config.knowledgeId);
+      } else if (this.config.knowledgeBase) {
+        avatarConfig.knowledgeBase = this.config.knowledgeBase;
+        console.log('Using custom knowledge base content');
+      }
+
+      const sessionInfo = await this.avatar.createStartAvatar(avatarConfig);
 
       console.log('Avatar session created:', sessionInfo);
 

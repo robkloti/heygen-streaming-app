@@ -6,7 +6,9 @@ import { UIController } from './ui-controller.js';
 const config = {
   apiToken: import.meta.env.VITE_HEYGEN_API_TOKEN,
   avatarId: import.meta.env.VITE_HEYGEN_AVATAR_ID,
-  voiceId: import.meta.env.VITE_HEYGEN_VOICE_ID
+  voiceId: import.meta.env.VITE_HEYGEN_VOICE_ID,
+  knowledgeId: import.meta.env.VITE_HEYGEN_KNOWLEDGE_ID, // Optional: knowledge base from labs.heygen.com
+  knowledgeBase: import.meta.env.VITE_HEYGEN_KNOWLEDGE_BASE // Optional: custom prompt content
 };
 
 class AvatarApp {
