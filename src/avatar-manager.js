@@ -121,13 +121,21 @@ export class AvatarManager {
       });
     });
 
-    // Avatar stops talking
-    this.avatar.on('avatar_stop_talking', (event) => {
+    // Avatar stops talking - restart listening for continuous conversation
+    this.avatar.on('avatar_stop_talking', async (event) => {
       console.log('Avatar stopped talking:', event);
       this.emit('speechEnded', {
         talking: false,
         provider: 'heygen'
       });
+
+      // Automatically restart listening for continuous conversation
+      try {
+        await this.avatar.startListening();
+        console.log('Auto-restarted listening after avatar speech');
+      } catch (error) {
+        console.log('Could not restart listening:', error.message);
+      }
     });
 
     // User starts speaking
