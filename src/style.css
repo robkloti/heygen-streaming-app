@@ -30,7 +30,7 @@ body {
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent scrolling for fullscreen */
 }
 
 @keyframes gradientShift {
@@ -41,11 +41,11 @@ body {
 
 #app {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0; /* Remove padding for fullscreen */
 }
 
 /* Screen Management */
@@ -173,30 +173,35 @@ body {
   font-size: 1.25rem;
 }
 
-/* Chat Screen */
+/* Chat Screen - Optimized for 9:16 portrait fullscreen */
 .chat-screen {
-  max-width: 1000px;
+  width: 100%;
+  height: 100vh;
 }
 
 .chat-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  gap: 0;
 }
 
 .video-section {
-  background: var(--glass-bg);
-  border-radius: 20px;
-  padding: 1.5rem;
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  flex: 1;
+  background: #000;
+  padding: 0;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .video-container {
-  position: relative;
-  aspect-ratio: 16/9;
-  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
   overflow: hidden;
   background: #000;
 }
@@ -204,8 +209,15 @@ body {
 .avatar-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
+  object-fit: cover; /* Cover for 9:16 portrait - avatar fills screen */
+  border-radius: 0;
+}
+
+/* For 9:16 (portrait) - optimize video display */
+@media (max-aspect-ratio: 9/16) {
+  .avatar-video {
+    object-fit: contain; /* Contain if screen is narrower than 9:16 */
+  }
 }
 
 .avatar-video.speaking {
@@ -215,9 +227,9 @@ body {
 
 .video-overlay {
   position: absolute;
-  top: 1rem;
+  top: env(safe-area-inset-top, 1rem);
   right: 1rem;
-  z-index: 10;
+  z-index: 100;
 }
 
 .status-indicator {
@@ -231,26 +243,34 @@ body {
 }
 
 .controls-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 80%, transparent 100%);
+  padding: 1.5rem;
+  padding-bottom: env(safe-area-inset-bottom, 1.5rem);
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .voice-status {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .voice-indicator {
-  background: var(--glass-bg);
-  border-radius: 16px;
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .voice-indicator.active {
@@ -299,11 +319,11 @@ body {
 }
 
 .text-controls {
-  background: var(--glass-bg);
-  border-radius: 16px;
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .input-group {
