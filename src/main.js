@@ -7,8 +7,12 @@ const config = {
   apiToken: import.meta.env.VITE_HEYGEN_API_TOKEN,
   avatarId: import.meta.env.VITE_HEYGEN_AVATAR_ID,
   voiceId: import.meta.env.VITE_HEYGEN_VOICE_ID,
-  knowledgeId: import.meta.env.VITE_HEYGEN_KNOWLEDGE_ID, // Optional: knowledge base from labs.heygen.com
-  knowledgeBase: `こんにちは！私はブロンクスビルAIのマリアです。
+  knowledgeId: import.meta.env.VITE_HEYGEN_KNOWLEDGE_ID // Knowledge base ID: 6e51014637a84351a0599c8b1df2d564
+};
+
+// Only use knowledgeBase text if knowledgeId is not provided
+if (!config.knowledgeId) {
+  config.knowledgeBase = `こんにちは！私はブロンクスビルAIのマリアです。
 
 【最重要ルール】
 返答は常に400文字以内。短く、簡潔でありながら内容は的確かつ人間らしいものとする。
@@ -36,8 +40,8 @@ const config = {
 ・聞き取れなかった場合は「恐れ入ります、今少し聞き取れませんでした」など丁寧に聞き返す。
 ・必ずロールを維持し、メール送信などは禁止。
 ・発話以外の描写（笑うなど）は一切禁止。
-・会話は常に滑らかで、相手が「知的で丁寧」と感じる返答を心掛ける。` // Updated conversation role-play partner prompt with language switching
-};
+・会話は常に滑らかで、相手が「知的で丁寧」と感じる返答を心掛ける。`;
+}
 
 class AvatarApp {
   constructor() {
@@ -84,6 +88,8 @@ class AvatarApp {
     console.log('Configuration validated:', {
       avatarId: config.avatarId,
       voiceId: config.voiceId,
+      knowledgeId: config.knowledgeId || '[NOT PROVIDED]',
+      hasKnowledgeBase: !!config.knowledgeBase,
       token: config.apiToken ? '[PROVIDED]' : '[MISSING]'
     });
   }

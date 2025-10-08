@@ -38,6 +38,7 @@ export class AvatarManager {
       const avatarConfig = {
         avatarName: this.config.avatarId,
         quality: AvatarQuality.High,
+        language: 'ja', // Set Japanese as default language
         voice: {
           voiceId: this.config.voiceId,
           emotion: VoiceEmotion.FRIENDLY
@@ -47,11 +48,20 @@ export class AvatarManager {
       // Add knowledge base configuration if provided
       if (this.config.knowledgeId) {
         avatarConfig.knowledgeId = this.config.knowledgeId;
-        console.log('Using knowledge base ID:', this.config.knowledgeId);
+        console.log('✅ Using knowledge base ID:', this.config.knowledgeId);
       } else if (this.config.knowledgeBase) {
         avatarConfig.knowledgeBase = this.config.knowledgeBase;
         console.log('Using custom knowledge base content');
       }
+
+      console.log('🚀 Avatar config being sent to API:', {
+        avatarName: avatarConfig.avatarName,
+        quality: avatarConfig.quality,
+        language: avatarConfig.language,
+        voiceId: avatarConfig.voice?.voiceId,
+        knowledgeId: avatarConfig.knowledgeId,
+        hasKnowledgeBase: !!avatarConfig.knowledgeBase
+      });
 
       const sessionInfo = await this.avatar.createStartAvatar(avatarConfig);
 
@@ -61,10 +71,20 @@ export class AvatarManager {
       await this.avatar.startVoiceChat();
       console.log('Voice chat started');
 
-      // Automatically start listening (like HeyGen's interface)
+      // Trigger the intro message manually since HeyGen dashboard intro doesn't auto-play with voice chat
+      console.log('Playing intro message...');
+      await this.avatar.speak({
+        text: 'こんにちは！私はブロンクスビルAIのマリアです、AIについてご質問にお答えいたします。',
+        task_type: 'talk'
+      });
+
+      // Wait for intro to complete before starting listening
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Automatically start listening after intro completes
       try {
         await this.avatar.startListening();
-        console.log('Auto-listening started');
+        console.log('Auto-listening started after intro');
         this.emit('autoListeningStarted');
       } catch (error) {
         console.log('Auto-listening not available, will use text-only mode:', error.message);
