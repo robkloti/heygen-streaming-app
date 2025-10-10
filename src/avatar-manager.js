@@ -38,7 +38,8 @@ export class AvatarManager {
       const avatarConfig = {
         avatarName: this.config.avatarId,
         quality: AvatarQuality.High,
-        language: 'ja', // Set Japanese as default language
+        // No language parameter = multilingual mode
+        // Intro message is in Japanese, but avatar can switch languages based on user input
         voice: {
           voiceId: this.config.voiceId,
           emotion: VoiceEmotion.FRIENDLY
