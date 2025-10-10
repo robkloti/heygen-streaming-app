@@ -211,6 +211,11 @@ body {
   height: 100%;
   object-fit: cover; /* Cover for 9:16 portrait - avatar fills screen */
   border-radius: 0;
+  image-rendering: -webkit-optimize-contrast; /* Better quality on WebKit */
+  image-rendering: crisp-edges;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 /* For 9:16 (portrait) - optimize video display */
